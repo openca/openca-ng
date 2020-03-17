@@ -1,0 +1,30 @@
+{
+  "id": {
+    "type": "string",
+    "required": true
+  },
+  "creds": {
+    "type": "ref:user-creds",
+    "required": true
+  },
+  "isGlobalAdmin": {
+    "type": "boolean",
+    "required": true
+  },
+  "isLoginRequired": {
+    "type": "boolean",
+    "required": true
+  },
+  "email": {
+    "type": "string",
+    "required": false
+  },
+  "phone": {
+    "type": "string",
+    "required": false
+  },
+  "address": {
+    "type": "ref:user-address",
+    "required": false
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "id" : { "type" : "string", "required" : true },
+  "isOnline" : { "type" : "boolean", "required" : true },
+  "host" : { "type" : "string" , "required" : false },
+  "port" : { "type" : "number" , "required" : false },
+  "pathPrefix" : { "type" : "string" , "required" : false },
+  "clientAuth" : { "type" : "ref:client-auth", "required" : false }
+}

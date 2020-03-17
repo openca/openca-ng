@@ -1,0 +1,10 @@
+{
+  "id" : { "type" : "string", "required" : true },
+  "quantity" : { "type" : "number", "required" : true },
+  "generateKeys" : { "type" : "boolean", "required" : true },
+  "dataMapping" : { "type" : "array", "required" : false },
+  "requests" : { "type" : "array", "required" : false },
+  "keys" : { "type" : "array", "required" : false },
+  "serialNumber" : { "type" : "string", "required" : true },
+  "profile" : { "type" : "ref:product-profile", "required" : true }
+}

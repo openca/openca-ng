@@ -1,0 +1,8 @@
+{
+  "id" : { "type" : "string", "required" : false },
+  "type" : { "type" : "string", "required" : true },
+  "algorithm" : { "type" : "ref:algor", "required" : false },
+  "value" : { "type" : "string", "required" : false },
+  "fileName" : { "type" : "string", "required" : false },
+  "secret" : { "type" : "string", "required" : false }
+}

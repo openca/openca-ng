@@ -1,0 +1,40 @@
+{
+  "id" : "software",
+  "enabled" : true,
+  "init" : [
+    "openssl version"
+  ],
+  "capabilities" : {
+    "keyCreate" : {
+      "enabled" : true,
+      "hasKeyFile" : true,
+      "cmd" : {
+        "rsa" : "openssl genrsa -out ${keyFile} ${bits}",
+        "ecdsa" : "openssl ecparam -genkey -name ${curve}",
+        "composite" : "openssl composite -genkey -rsa:2048;ec:secp256v1;rsa4096 -out ${keyFile}"
+      }
+    },
+    "keyImport" : {
+      "enabled" : true,
+      "cmd" : {
+        "rsa" : "",
+        "ecdsa" : ""
+      }
+    },
+    "keyWrap" : {
+      "enabled" : false,
+      "cmd" : null
+    },
+    "keyUnwrap" : {
+      "enabled" : false,
+      "cmd" : null
+    },
+    "keyDelete" : {
+      "enabled" : true,
+      "cmd" : {
+        "rsa" : "rm ${keyFile}",
+        "ecdsa" : "rm ${keyFile}"
+      }
+    }
+  }
+}

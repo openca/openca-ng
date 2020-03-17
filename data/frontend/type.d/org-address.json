@@ -1,0 +1,26 @@
+{
+  "street1" : { 
+    "type" : "string",
+    "required" : false
+  },
+  "street2" : {
+    "type" : "string",
+    "required" : false
+  },
+  "city" : { 
+    "type" : "string",
+    "required" : false
+  },
+  "state" : {
+    "type" : "string",
+    "required" : false
+  },
+  "zip" : {
+    "type" : "string",
+    "required" : false
+  },
+  "country" : {
+    "type" : "string",
+    "required" : false
+  }
+}

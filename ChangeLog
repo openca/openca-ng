@@ -1,0 +1,6 @@
+* Mar 17 2020 Massimiliano Pala <madwolf@openca.org>
+- Some refactoring for multiple frontend/backend configuration support
+- Imported the code into public repository
+
+* Jan 22 2016 Massimiliano Pala <madwolf@openca.org>
+- First version of the basic architecture and initial CLI messages support

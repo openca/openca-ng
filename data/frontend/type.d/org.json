@@ -1,0 +1,38 @@
+{
+  "id": {
+    "type": "string",
+    "required": true
+  },
+  "name": {
+    "type": "string",
+    "required": true
+  },
+  "desc": {
+    "type": "string",
+    "required": false
+  },
+  "website": {
+    "type": "string",
+    "required": false
+  },
+  "logoUrl" : {
+    "type" : "string",
+    "required" : false
+  },
+  "address" : {
+    "type" : "ref:org-address",
+    "required" : false
+  },
+  "isEnabled" : {
+    "type" : "boolean",
+    "required" : false
+  },
+  "users" : {
+    "type" : "arrayOf:string",
+    "required" : false
+  },
+  "products" : {
+    "type" : "arrayOf:string",
+    "required" : false
+  }
+}

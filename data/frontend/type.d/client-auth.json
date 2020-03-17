@@ -1,0 +1,5 @@
+{
+  "privKey" : { "type" : "string" , "required" : true },
+  "certAndChain" : { "type" : "string" , "required" : true },
+  "trustedCas" : { "type" : "string" , "required" : true }
+}

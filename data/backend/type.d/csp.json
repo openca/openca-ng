@@ -1,0 +1,8 @@
+{
+  "id" : { "type" : "string", "required" : true },
+  "enabled" : { "type" : "boolean", "required" : false },
+  "isHardware" : { "type" : "boolean", "required" : true },
+  "compliance" : { "type" : "arrayOf:string", "required" : false },
+  "init" : { "type" : "arrayOf:string", "required" : false },
+  "capabilities" : { "type" : "ref:csp-capability", "required" : true }
+}

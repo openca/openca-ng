@@ -1,0 +1,4 @@
+{
+  "curve" : { "type" : "string", "required" : false },
+  "bits" : { "type" : "number", "required" : false }
+}

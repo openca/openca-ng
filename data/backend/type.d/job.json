@@ -1,0 +1,13 @@
+{
+  "id" : { "type" : "string", "required" : true },
+  "caId" : { "type" : "string", "required" : true },
+  "fileName" : { "type" : "string", "required" : true},
+  "ordFileName" : { "type" : "string", "required" : true },
+  "submittedOn" : { "type" : "string" , "required" : false },
+  "completedOn" : { "type" : "string" , "required" : false },
+  "errorOn" : { "type" : "string" , "required" : false },
+  "prev" : { "type" : "string" , "required" : false },
+  "next" : { "type" : "string" , "required" : false },
+  "processed" : { "type" : "array", "required" : false },
+  "history" : { "type" : "array", "required" : false }
+}

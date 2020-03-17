@@ -1,0 +1,7 @@
+{
+  "id" : { "type" : "string", "required" : true },
+  "caId" : { "type" : "string", "required" : true },
+  "product" : { "type" : "ref:order-specs", "required" : true},
+  "history" : { "type" : "array", "required" : true },
+  "notes" : { "type" : "array", "required" : false }
+}

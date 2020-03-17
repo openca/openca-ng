@@ -1,0 +1,18 @@
+{
+  "name" : { 
+    "type" : "string",
+    "required" : false
+  },
+  "fax" : {
+    "type" : "string",
+    "required" : false
+  },
+  "phone" : { 
+    "type" : "string",
+    "required" : false
+  },
+  "email" : {
+    "type" : "string",
+    "required" : false
+  }
+}

@@ -1,0 +1,30 @@
+{
+ "id" : "LunaSA",
+  "enabled" : true,
+  "isHardware" : true,
+  "compliance" : [ 
+    "Fips 180-2 Level 3"
+  ],
+  "capabilities" : {
+    "keyCreate" : { 
+      "enabled" : true,
+      "cmd" : ""
+    },
+    "keyImport" : {
+      "enabled" : true,
+      "cmd" : ""
+    },
+    "keyWrap" : {
+      "enabled" : false,
+      "cmd" : null
+    },
+    "keyUnwrap" : {
+      "enabled" : false,
+      "cmd" : null
+    },
+    "keyDelete" : {
+      "enabled" : true,
+      "cmd" : ""
+    }
+  }
+}

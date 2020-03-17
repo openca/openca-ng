@@ -1,0 +1,4 @@
+{
+  "id" : { "type" : "string", "required" : true },
+  "params" : { "type" : "ref:algor-params", "required" : false }
+}

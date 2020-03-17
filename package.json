@@ -1,0 +1,55 @@
+{
+  "name": "openca-ng",
+  "description": "OpenCA Next Generation PKI",
+  "homepage": "http://www.openca.org/projects/ng/",
+  "bugs": "https://github.com/opencrypto/openca-ng/issues",
+  "main": "openca-ng.js",
+  "version": "0.0.1",
+  "license": "MIT",
+  "keywords": [
+    "pki",
+    "certificates",
+    "x509"
+  ],
+  "author": {
+    "name": "Massimiliano Pala",
+    "email": "madwolf@openca.org",
+    "url": "https://linkedin.com/m/mpala"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opencrypto/openca-ng"
+  },
+  "directories": {
+    "lib": ".",
+    "mods": ".",
+    "conf": ".",
+    "data": ".",
+    "tools": "."
+  },
+  "engines": {
+    "node": ">= 5.7.0",
+    "ender": ">= 0.5.0"
+  },
+  "dependencies": {
+    "bluebird": "~3.5.3",
+    "body-parser": "~1.18.3",
+    "clone": "~2.1.2",
+    "commander": "~2.19.0",
+    "console": "~0.5",
+    "cookie-parser": "~1.4.3",
+    "express": "~4.16.4",
+    "helmet": "~3.21.2",
+    "https": "~1.0.0",
+    "fs": "~0.0.2",
+    "package.json": "^2.0.1",
+    "path": "~0.12.7",
+    "promise": "~7.1.1",
+    "querystring": "~0.2.0",
+    "request": "~2.88.0",
+    "require-dir": "~1.2.0",
+    "pkijs": "~2.1.84",
+    "when": "~3.7.7"
+  },
+  "preferGlobal": true
+}

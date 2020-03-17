@@ -1,0 +1,33 @@
+{
+  "baseUrl": "https://127.0.0.1",
+  "id" : "FrontEnd1",
+  "listen": {
+    "host": "127.0.0.1",
+    "port": 6443,
+    "pathPrefix": "/1.0",
+    "auth": {
+      "privKey": "conf/frontend/pki.d/fe-server/fe-server-key.pem",
+      "certAndChain": "conf/frontend/pki.d/fe-server/fe-server-cert.pem",
+      "trustedCas": "conf/frontend/pki.d/fe-root/fe-root-cert.pem",
+      "requestClientCert": true,
+      "allowUntrustedClientCert": true
+    }
+  },
+  "cookies": {
+    "domain": ".localhost",
+    "maxAge": 1800000,
+    "maxUpdateAge": 5,
+    "maxInactivity": "interval '1 hour'",
+    "maxLifespan": "interval '48 hours'",
+    "name": "OCApki"
+  },
+  "audit": {
+    "cert": "conf/frontend/pki.d/fe-audit/fe-audit-cert.pem",
+    "key": {
+      "id": "conf/frontend/pki.d/fe-audit/fe-audit-key.pem",
+      "type": "software"
+    }
+  },
+  "verbose": true,
+  "debug": true
+}

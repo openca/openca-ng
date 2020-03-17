@@ -1,0 +1,10 @@
+{
+  "password" : {
+    "type" : "string",
+    "required" : false
+  },
+  "cert" : {
+    "type" : "string",
+    "required" : false
+  }
+}

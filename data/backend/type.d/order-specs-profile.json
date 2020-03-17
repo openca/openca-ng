@@ -1,0 +1,5 @@
+{
+  "subject" : { "type" : "array", "required" : true },
+  "publicKey" : { "type" : "object", "required" : true },
+  "extensions" : { "type" : "array", "required" : true }
+}

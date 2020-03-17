@@ -1,0 +1,13 @@
+{
+  "id" : { "type" : "string", "required" : true },
+  "issuerId" : { "type" : "string", "required" : true },
+  "fileName" : { "type" : "string", "required" : false },
+  "submittedOn" : { "type" : "string" , "required" : true },
+  "submittedBy" : { "type" : "string" , "required" : true },
+  "approvedBy" : { "type" : "arrayOf:string", "required" : false },
+  "desc" : { "type" : "string", "required" : false },
+  "cert" : { "type" : "string", "required" : false },
+  "key" : { "type" : "ref:key", "required" : false },
+  "enabled" : { "type" : "boolean", "required" : false },
+  "history" : { "type" : "array", "required" : false }
+}

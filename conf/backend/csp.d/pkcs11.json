@@ -1,0 +1,26 @@
+{
+  "id" : "pkcs11",
+  "enabled" : false,
+  "capabilities" : {
+    "keyCreate" : { 
+      "enabled" : true,
+      "cmd" : ""
+    },
+    "keyImport" : {
+      "enabled" : true,
+      "cmd" : ""
+    },
+    "keyWrap" : {
+      "enabled" : false,
+      "cmd" : null
+    },
+    "keyUnwrap" : {
+      "enabled" : false,
+      "cmd" : null
+    },
+    "keyDelete" : {
+      "enabled" : true,
+      "cmd" : ""
+    }
+  }
+}

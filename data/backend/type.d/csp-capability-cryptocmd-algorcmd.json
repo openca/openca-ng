@@ -1,0 +1,5 @@
+{
+  "rsa" : { "type" : "string", "required" : false },
+  "ecdsa" : { "type" : "string", "required" : false },
+  "composite" : { "type" : "string", "required" : false }
+}
