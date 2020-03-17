@@ -74,6 +74,56 @@ for (i in Urls) {
   Urls[i] = OCAcnf.baseUrl + Urls[i];
 }
 
+// Directories For Frontend
+if (OCAprg == "frontend") {
+OCApath = { 
+    "base"   : path.normalize(__dirname),
+    "lib"    : path.normalize(__dirname + "/lib/"  + OCAprg),
+    "mods"   : path.normalize(__dirname + "/mods/" + OCAprg),
+    "data"   : path.normalize(__dirname + "/data/" + OCAprg),
+    "audit"  : path.normalize(__dirname + "/data/" + OCAprg + "/audit.d"),
+    "order"  : path.normalize(__dirname + "/data/" + OCAprg + "/order.d"),
+    "type"   : path.normalize(__dirname + "/data/" + OCAprg + "/type.d"),
+    "org"    : path.normalize(__dirname + "/data/" + OCAprg + "/org.d"),
+    "pki"    : path.normalize(__dirname + "/data/" + OCAprg + "/pki.d"),
+    "sync"   : path.normalize(__dirname + "/conf/" + OCAprg + "/sync.d"),
+    "user"   : path.normalize(__dirname + "/conf/" + OCAprg + "/user.d"),
+    "queue"  : path.normalize(__dirname + "/conf/" + OCAprg + "/queue.d")
+  };
+} else {
+  // Directories For Backend
+  OCApath = { 
+    "base"  : path.normalize(__dirname),
+    "lib"   : path.normalize(__dirname + "/lib/"  + OCAprg),
+    "mods"  : path.normalize(__dirname + "/mods/" + OCAprg),
+    "data"  : path.normalize(__dirname + "/data/" + OCAprg),
+    "audit" : path.normalize(__dirname + "/data/" + OCAprg + "/audit.d"),
+    "order" : path.normalize(__dirname + "/data/" + OCAprg + "/order.d"),
+    "type"  : path.normalize(__dirname + "/data/" + OCAprg + "/type.d"),
+    "ca"    : path.normalize(__dirname + "/data/" + OCAprg + "/ca.d"),
+    "job"   : path.normalize(__dirname + "/data/" + OCAprg + "/job.d"),
+    "csp"   : path.normalize(__dirname + "/conf/" + OCAprg + "/csp.d"),
+    "user"  : path.normalize(__dirname + "/conf/" + OCAprg + "/user.d"),
+    "queue" : path.normalize(__dirname + "/conf/" + OCAprg + "/queue.d")
+  };
+}
+
+// Checks the existance of the required paths
+for (var dir in OCApath) {
+  // Checks if the directory still exists
+  if (!fs.existsSync(OCApath[dir])) {
+    // If we have a missing directory, we create it
+    fs.mkdir(OCApath[dir], '0700', function $mail$createDirs (err) {
+      // Checks if we have an error code
+      if (err != null && err.code != 'EEXIST') {
+        // Non recoverable error, we must abort.
+        console.error("ERROR: Cannot create dir [ id: %s, path: %s, err: %s]", OCApath[dir], OCApath[dir], err);
+        process.exit(1);
+      }
+    })
+  }
+}
+
 // Global: Require Options
 const reqOptions = {
   "recurse" : true,
@@ -108,36 +158,6 @@ OCAdebug  = common.engine.OCAdebug;
 // API Error
 ApiError  = common.engine.ApiError
 
-// Directories For Frontend
-if (OCAprg == "frontend") {
-OCApath = { 
-    "base"   : path.normalize(__dirname),
-    "data"   : path.normalize(__dirname + "/data/" + OCAprg),
-    "audit"  : path.normalize(__dirname + "/data/" + OCAprg + "/audit.d"),
-    "order"  : path.normalize(__dirname + "/data/" + OCAprg + "/order.d"),
-    "type"   : path.normalize(__dirname + "/data/" + OCAprg + "/type.d"),
-    "org"    : path.normalize(__dirname + "/data/" + OCAprg + "/org.d"),
-    "pki"    : path.normalize(__dirname + "/data/" + OCAprg + "/pki.d"),
-    "sync"   : path.normalize(__dirname + "/conf/" + OCAprg + "/sync.d"),
-    "user"   : path.normalize(__dirname + "/conf/" + OCAprg + "/user.d"),
-    "queue"  : path.normalize(__dirname + "/conf/" + OCAprg + "/bequeue.d")
-  };
-} else {
-  // Directories For Backend
-  OCApath = { 
-    "base"  : path.normalize(__dirname),
-    "data"  : path.normalize(__dirname + "/data/" + OCAprg),
-    "ca"    : path.normalize(__dirname + "/data/" + OCAprg + "/ca.d"),
-    "job"   : path.normalize(__dirname + "/data/" + OCAprg + "/job.d"),
-    "audit" : path.normalize(__dirname + "/data/" + OCAprg + "/audit.d"),
-    "order" : path.normalize(__dirname + "/data/" + OCAprg + "/order.d"),
-    "type"  : path.normalize(__dirname + "/data/" + OCAprg + "/type.d"),
-    "csp"   : path.normalize(__dirname + "/conf/" + OCAprg + "/csp.d"),
-    "user"  : path.normalize(__dirname + "/conf/" + OCAprg + "/user.d"),
-    "queue" : path.normalize(__dirname + "/conf/" + OCAprg + "/fequeue.d")
-  };
-}
-
 // Synchronization and Offline Support
 if (OCAprg == "frontend") {
 
@@ -160,22 +180,6 @@ if (OCAprg == "frontend") {
     "frontend" : new OCAfesync(OCApath.sync, { "localId" : OCAcnf.id })
   };
 
-}
-
-// Checks the existance of the required paths
-for (var dir in OCApath) {
-  // Checks if the directory still exists
-  if (!fs.existsSync(OCApath[dir])) {
-    // If we have a missing directory, we create it
-    fs.mkdir(OCApath[dir], '0700', function $mail$createDirs (err) {
-      // Checks if we have an error code
-      if (err != null && err.code != 'EEXIST') {
-        // Non recoverable error, we must abort.
-        OCAdebug("ERROR: Cannot create dir [ id: %s, path: %s, err: %s]", OCApath[dir], OCApath[dir], err);
-        process.exit(1);
-      }
-    })
-  }
 }
 
 // Instantiate the Global Objects

@@ -98,12 +98,14 @@ if (prg.debug == true) OCAcnf.debug = true;
 banner();
 
 // Checks that the needed directories exist
+if (!fs.existsSync(UserDirName)) fs.mkdirSync(UserDirName);
 if (!fs.existsSync(UserDirName)) {
   console.error("ERROR: Directory [%s] does not exists, aborting.\n", UserDirName);
   process.exit(1);
 }
 
 // Checks that the needed directories exist
+if (!fs.existsSync(CertDirName)) fs.mkdirSync(CertDirName);
 if (!fs.existsSync(CertDirName)) {
   console.error("ERROR: Directory [%s] does not exists, aborting.\n", CertDirName);
   process.exit(1);
