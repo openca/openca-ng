@@ -63,31 +63,26 @@ const tlsConfigs = {
       "serverAuth" : {}
     }
   },
-  "user2" : {
+  "backend1" : {
     "backend" : {
-      "clientAuth" : {
-        "privKey" : "conf/frontend/pki.d/fe-beclient/fe-beclient-key.pem",
-        "certAndChain" : "conf/frontend/pki.d/fe-beclient/fe-beclient-cert.pem",
-        "trustedCas" : "conf/backend/pki.d/be-root/be-root-cert.pem"
+      "clientAuth": {
+        "privKey": "conf/backend/pki.d/be-server/be-server-key.pem",
+        "certAndChain": "conf/backend/pki.d/be-server/be-server-cert.pem",
+        "trustedCas": "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
       },
       "serverAuth" : {}
     },
     "frontend" : {
-      "clientAuth" : {
-        "privKey" : "conf/frontend/pki.d/fe-user/fe-user-key.pem",
-        "certAndChain" : "conf/frontend/pki.d/fe-user/fe-user-cert.pem",
-        "trustedCas" : "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
+      "clientAuth": {
+        "privKey": "conf/backend/pki.d/be-server/be-server-key.pem",
+        "certAndChain": "conf/backend/pki.d/be-server/be-server-cert.pem",
+        "trustedCas": "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
       },
       "serverAuth" : {}
     }
   },
   "admin" : {
-    "backend" : {
-      "clientAuth" : {
-        "trustedCas" : "conf/backend/pki.d/be-root/be-root-cert.pem"
-      },
-      "serverAuth" : {}
-    },
+    "backend" : {},
     "frontend" : {
       "clientAuth" : {
         "trustedCas" : "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
@@ -274,6 +269,16 @@ if (prg.logout) {
   return 0;
 }
 
+OCAlog('\n* Setting up the connection (%s:%d) (TLS: %s)', 
+  OCAcnf.listen.host, OCAcnf.listen.port, (OCAcnf.listen.auth == null ? "No" : "Yes"));
+
+// Checks for the Key
+OCAlog("  - [ load: key file, path:%s ]", myOptions.keyName);
+// Checks for the Certificate / Certificate Chain
+OCAlog("  - [ load: chain file, path:%s ]", myOptions.certName);
+// Checks for the Trusted CAs
+OCAlog("  - [ load: trusted CAs, path:%s ]\n", myOptions.caName);
+
 // If we need to login, let's do that
 if (prg.login) {
   // Builds the Login Options
@@ -297,7 +302,6 @@ if (prg.login) {
       // All Done
       process.exit(1);
     }
-    OCAdebug(msg);
     // Provides the user with positive feedback
     OCAlog("Login Successful.\n");
   });

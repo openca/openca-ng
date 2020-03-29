@@ -8,7 +8,6 @@
     "auth": {
       "privKey": "conf/frontend/pki.d/fe-server/fe-server-key.pem",
       "certAndChain": "conf/frontend/pki.d/fe-server/fe-server-cert.pem",
-      "trustedCas": "conf/frontend/pki.d/fe-root/fe-root-cert.pem",
       "requestClientCert": true,
       "allowUntrustedClientCert": true
     }

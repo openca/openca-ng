@@ -376,7 +376,7 @@ case "$1" in
 		echo "  - Password-Based Global Administrator (global) .....: (passwd) global"
 		tools/gen-user.js -f -u global -p global -g
 
-    # Adds a Certificate-Based test User(s) in the frontend interface
+    	# Adds a Certificate-Based test User(s) in the frontend interface
 		echo "  - Certificate-Based User (backend1) .....: (cert) conf/backend/pki.d/be-server/be-server-cert.pem"
 		tools/gen-user.js -f -u backend1 -c conf/backend/pki.d/be-server/be-server-cert.pem -g
 		;;

@@ -372,21 +372,21 @@ if (OCAcnf.listen.auth == null) {
 
     // Checks for the Key
     OCAlog("  - [ load: key file, path:%s ]", keyFile);
-    if (!fs.existsSync(keyFile)) {
+    if (keyFile != "" && !fs.existsSync(keyFile)) {
       OCAlog("\nERROR: Cannot find the private key (auth > privKey) file ['%s'], aborting\n", keyFile);
       process.exit(1);
     }
 
     // Checks for the Certificate / Certificate Chain
     OCAlog("  - [ load: chain file, path:%s ]", certFile);
-    if (!fs.existsSync(certFile)) {
+    if (certFile != "" && !fs.existsSync(certFile)) {
       OCAlog("\nERROR: Cannot find the cert (auth > certChain option) file ['%s'], aborting.\n", certFile);
       process.exit(1);
     }
 
     // Checks for the Trusted CAs
     OCAlog("  - [ load: trusted CAs, path:%s ]", trustedFile);
-    if (!fs.existsSync(trustedFile)) {
+    if (trustedFile != null && !fs.existsSync(trustedFile)) {
       OCAlog("\nERROR: Cannot find the cert (auth > trustedCas option) file ['%s'], aborting.\n", trustedFile);
       process.exit(1);
     }
@@ -400,7 +400,7 @@ if (OCAcnf.listen.auth == null) {
       // Server's Certificate in PEM format
       cert : fs.readFileSync(certFile, 'utf8'),
       // Overrides the default Mozilla's CAs
-      ca : fs.readFileSync(trustedFile, 'utf8'),
+      ca : (trustedFile != null ? fs.readFileSync(trustedFile, 'utf8') : undefined),
       // Loads the most recent CRL
       // crl : fs.readFileSync(crlFile, 'utf8'),
       // Requires Client Authentication
