@@ -32,48 +32,97 @@ const host = {
 const tlsConfigs = {
   "user1" : {
     "backend" : {
-      "trustedCas" : "conf/backend/pki.d/be-root/be-root-cert.pem"
+      "clientAuth" : {
+        "trustedCas" : "conf/backend/pki.d/be-root/be-root-cert.pem"
+      },
+      "serverAuth": {
+        "certName": "conf/frontend/pki.d/fe-server/fe-server-cert.pem",
+        "subject": {
+          "CN": "NG Backend Server 1"
+        },
+        "issuer": {
+          "O": "OpenCA",
+          "OU": "BackEnd Services",
+          "CN": "Backend Infrastructure Root"
+        },
+        "issuerCertificate": {
+          "subject": {
+            "O": "OpenCA"
+          },
+          "issuer": {
+            "O": "OpenCA",
+            "OU": "BackEnd Services"
+          }
+        }
+      }
     },
     "frontend" : {
-      "trustedCas" : "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
+      "clientAuth": {
+        "trustedCas" : "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
+      },
+      "serverAuth" : {}
     }
   },
   "user2" : {
     "backend" : {
-      "privKey" : "conf/frontend/pki.d/fe-beclient/fe-beclient-key.pem",
-      "certAndChain" : "conf/frontend/pki.d/fe-beclient/fe-beclient-cert.pem",
-      "trustedCas" : "conf/backend/pki.d/be-root/be-root-cert.pem"
+      "clientAuth" : {
+        "privKey" : "conf/frontend/pki.d/fe-beclient/fe-beclient-key.pem",
+        "certAndChain" : "conf/frontend/pki.d/fe-beclient/fe-beclient-cert.pem",
+        "trustedCas" : "conf/backend/pki.d/be-root/be-root-cert.pem"
+      },
+      "serverAuth" : {}
     },
     "frontend" : {
-      "privKey" : "conf/frontend/pki.d/fe-user/fe-user-key.pem",
-      "certAndChain" : "conf/frontend/pki.d/fe-user/fe-user-cert.pem",
-      "trustedCas" : "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
+      "clientAuth" : {
+        "privKey" : "conf/frontend/pki.d/fe-user/fe-user-key.pem",
+        "certAndChain" : "conf/frontend/pki.d/fe-user/fe-user-cert.pem",
+        "trustedCas" : "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
+      },
+      "serverAuth" : {}
     }
   },
   "admin" : {
     "backend" : {
-      "trustedCas" : "conf/backend/pki.d/be-root/be-root-cert.pem"
+      "clientAuth" : {
+        "trustedCas" : "conf/backend/pki.d/be-root/be-root-cert.pem"
+      },
+      "serverAuth" : {}
     },
     "frontend" : {
-      "trustedCas" : "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
+      "clientAuth" : {
+        "trustedCas" : "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
+      },
+      "serverAuth" : {}
     }
   },
   "global" : {
     "backend" : {
-      "trustedCas" : "conf/backend/pki.d/be-root/be-root-cert.pem"
+      "clientAuth" : {
+        "trustedCas" : "conf/backend/pki.d/be-root/be-root-cert.pem"
+       },
+       "serverAuth" : {}
     },
     "frontend" : {
-      "trustedCas" : "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
+      "clientAuth" : {
+        "trustedCas" : "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
+      },
+      "serverAuth" : {}
     }
   }
 };
 
 const trustAnchors = {
   "frontend" : {
-    "trustedCas" : "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
+    "clientAuth" : {
+      "trustedCas" : "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
+    },
+    "serverAuth" : {},
   },
   "backend" : {
-    "trustedCas" : "conf/backend/pki.d/be-root/be-root-cert.pem"
+    "clientAuth" : {
+      "trustedCas" : "conf/backend/pki.d/be-root/be-root-cert.pem"
+    },
+    "serverAuth" : {}
   }
 };
 
@@ -248,6 +297,7 @@ if (prg.login) {
       // All Done
       process.exit(1);
     }
+    OCAdebug(msg);
     // Provides the user with positive feedback
     OCAlog("Login Successful.\n");
   });

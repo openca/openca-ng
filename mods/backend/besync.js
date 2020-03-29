@@ -14,6 +14,13 @@ const crypto = require("crypto");
 // Shortcut
 const getHandler = OCAtools.getHandler;
 
+                        // ==============
+                        // Initialization
+                        // ==============
+
+// Starts the queue management object for
+// the Backend Interface
+
 
                         // =======================
                         // API Handlers [/usr/...]

@@ -1,12 +1,20 @@
 {
- "id" : "LunaSA",
+  "id" : "LunaSA",
+  "name" : "Gemalto LunaSA Engine Provider",
   "enabled" : true,
+  "hasKeyFile" : true,
   "isHardware" : true,
   "compliance" : [ 
     "Fips 180-2 Level 3"
   ],
+  "init" : [
+  ],
   "capabilities" : {
     "keyCreate" : { 
+      "enabled" : true,
+      "cmd" : ""
+    },
+    "keyDelete" : {
       "enabled" : true,
       "cmd" : ""
     },
@@ -14,17 +22,9 @@
       "enabled" : true,
       "cmd" : ""
     },
-    "keyWrap" : {
+    "keyExport" : {
       "enabled" : false,
       "cmd" : null
-    },
-    "keyUnwrap" : {
-      "enabled" : false,
-      "cmd" : null
-    },
-    "keyDelete" : {
-      "enabled" : true,
-      "cmd" : ""
     }
   }
 }

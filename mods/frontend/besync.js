@@ -15,24 +15,10 @@ const crypto = require("crypto");
 const getHandler = OCAtools.getHandler;
 
 
-                        // =======================
-                        // API Handlers [/usr/...]
-                        // =======================
+                     // =======================
+                     // API Handlers [/usr/...]
+                     // =======================
 
-
-// The Backend Posts to the Frontend its configuration
-// for the Queue initialization for the Backend
-handlers.push(
-  getHandler({ method: "post",
-               path: "/be/conf", func: function user$creation (req, res, ctx) {
-
-    // console.log("DEBUG: REQ BODY", req.body);
-    // console.dir(req.body);
-
-    // Let's Build the Message
-    var reqMsg = new OCAMsg(req.body);
-
-}}, { login: false, reqAdmin: false, reqGlobalAdmin: false }, true));
 
 
                      // ======================================
@@ -54,7 +40,7 @@ handlers.push(
     console.log("Params: " + JSON.stringify(req.params));
     res.json({ "req" : req });
 
-}}, { login: true, reqAdmin: false, reqGlobalAdmin: false }, true));
+}}, { login: true, reqAdmin: false, reqGlobalAdmin: true }, true));
 
 
                      // ======================================
@@ -68,40 +54,47 @@ handlers.push(
                path: "/be/queue", func: function (req, res, ctx) {
     console.log("Params: " + JSON.stringify(req.params));
     res.json({ "req" : req });
-}}, { login: true, reqAdmin: true, reqGlobalAdmin: false }, false));
+}}, { login: true, reqAdmin: true, reqGlobalAdmin: true }, false));
 
 // Gets the next item on the queue
 handlers.push(
   getHandler({ method: "get",
-               path: "/be/queue/process", func: function (req, res, ctx) {
+               path: "/be/:id", func: function (req, res, ctx) {
     console.log("Params: " + JSON.stringify(req.params));
     res.json({ "req" : req });
-}}, { login: true, reqAdmin: true, reqGlobalAdmin: false }, false));
+}}, { login: true, reqAdmin: true, reqGlobalAdmin: true }, false));
 
 // Updates the current (next) item on the queue
 handlers.push(
   getHandler({ method: "post",
-               path: "/be/queue/reject", func: function (req, res, ctx) {
+               path: "/be/:id/reject", func: function (req, res, ctx) {
     console.log("Params: " + JSON.stringify(req.params));
     res.json({ "req" : req });
-}}, { login: true, reqAdmin: true, reqGlobalAdmin: false }, false));
+}}, { login: true, reqAdmin: true, reqGlobalAdmin: true }, false));
 
 // Updates the current (next) item on the queue
 handlers.push(
   getHandler({ method: "post",
-               path: "/be/queue/update", func: function (req, res, ctx) {
+               path: "/be/:id/update", func: function (req, res, ctx) {
     console.log("Params: " + JSON.stringify(req.params));
     res.json({ "req" : req });
-}}, { login: true, reqAdmin: true, reqGlobalAdmin: false }, false));
+}}, { login: true, reqAdmin: true, reqGlobalAdmin: true }, false));
 
 // Updates the current (next) item on the queue
 handlers.push(
   getHandler({ method: "post",
-               path: "/be/queue/abort", func: function (req, res, ctx) {
+               path: "/be/:id/abort", func: function (req, res, ctx) {
     console.log("Params: " + JSON.stringify(req.params));
     res.json({ "req" : req });
-}}, { login: true, reqAdmin: true, reqGlobalAdmin: false }, false));
+}}, { login: true, reqAdmin: true, reqGlobalAdmin: true }, false));
 
+// Posts the result after processing to the queue
+handlers.push(
+  getHandler({ method: "post",
+               path: "/be/:id/resolve", func: function (req, res, ctx) {
+    console.log("Params: " + JSON.stringify(req.params));
+    res.json({ "req" : req });
+}}, { login: true, reqAdmin: true, reqGlobalAdmin: true }, false));
 
 // Exports only the handlers
 exports.handlers = handlers;

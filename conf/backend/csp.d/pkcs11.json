@@ -1,26 +1,36 @@
 {
-  "id" : "pkcs11",
-  "enabled" : false,
-  "capabilities" : {
-    "keyCreate" : { 
-      "enabled" : true,
-      "cmd" : ""
+  "id": "pkcs11",
+  "name": "Gemalto LunaSA7 on PKCS#11",
+  "enabled": false,
+  "hasKeyFile": false,
+  "isHardware": true,
+  "compliance": [
+    "Fips 180-2 Level 3"
+  ],
+  "init": [
+    "execute cmd one",
+    "execute cmd two"
+  ],
+  "capabilities": {
+    "keyCreate": {
+      "enabled": true,
+      "cmd": {
+        "rsa": "",
+        "ecdsa": "",
+        "composite": ""
+      }
     },
-    "keyImport" : {
-      "enabled" : true,
-      "cmd" : ""
+    "keyDelete": {
+      "enabled": true,
+      "cmd": ""
     },
-    "keyWrap" : {
-      "enabled" : false,
-      "cmd" : null
+    "keyImport": {
+      "enabled": false,
+      "cmd": null
     },
-    "keyUnwrap" : {
-      "enabled" : false,
-      "cmd" : null
-    },
-    "keyDelete" : {
-      "enabled" : true,
-      "cmd" : ""
+    "keyExport": {
+      "enabled": false,
+      "cmd": null
     }
   }
 }

@@ -86,6 +86,7 @@ OCApath = {
     "type"   : path.normalize(__dirname + "/data/" + OCAprg + "/type.d"),
     "org"    : path.normalize(__dirname + "/data/" + OCAprg + "/org.d"),
     "pki"    : path.normalize(__dirname + "/data/" + OCAprg + "/pki.d"),
+    "backend": path.normalize(__dirname + "/conf/" + OCAprg + "/backend.d"),
     "sync"   : path.normalize(__dirname + "/conf/" + OCAprg + "/sync.d"),
     "user"   : path.normalize(__dirname + "/conf/" + OCAprg + "/user.d"),
     "queue"  : path.normalize(__dirname + "/conf/" + OCAprg + "/queue.d")
@@ -103,8 +104,7 @@ OCApath = {
     "ca"    : path.normalize(__dirname + "/data/" + OCAprg + "/ca.d"),
     "job"   : path.normalize(__dirname + "/data/" + OCAprg + "/job.d"),
     "csp"   : path.normalize(__dirname + "/conf/" + OCAprg + "/csp.d"),
-    "user"  : path.normalize(__dirname + "/conf/" + OCAprg + "/user.d"),
-    "queue" : path.normalize(__dirname + "/conf/" + OCAprg + "/queue.d")
+    "user"  : path.normalize(__dirname + "/conf/" + OCAprg + "/user.d")
   };
 }
 
@@ -141,9 +141,10 @@ lib    = require("require-dir")( __dirname + "/lib/" + OCAprg, reqOptions);
 console.log("  - Loaded local libraries ......: OK");
 
 // Global: Modules Shortcut
-// OCAsec   = lib.sec;
+OCAengine = common.engine;
 OCAtools  = common.tools;
 OCAauth   = common.auth;
+// OCAsec   = lib.sec;
 // OCAdata  = lib.data;
 
 // Global: Engine Constructors
@@ -155,37 +156,28 @@ OCAlog    = common.engine.OCAlog;
 OCAverb   = common.engine.OCAverb;
 OCAdebug  = common.engine.OCAdebug;
 
+// Network Queries
+OCAquery  = common.engine.OCAquery;
+
 // API Error
 ApiError  = common.engine.ApiError
 
-// Synchronization and Offline Support
-if (OCAprg == "frontend") {
+
+                          // ==============================
+                          // Instantiate the Global Objects
+                          // ==============================
+
+// Available CAs
+OCAcas = {
+  "queue" : { }
+};
+
+if (OCAprg == "backend") {
 
   // This Global Object is used for managing the
   // synchronization between the Frontend and the
   // Backend (that can be online or offline)
-  OCAbesync = lib.besync.OCAbesync;
-
-  // This Global Object is used for Synchronizing
-  // across different Frontends (e.g., users, orgs,
-  // products, etc.)
-  OCAfesync = lib.fesync.OCAfesync;
-
-  // Synchronization Object for Frontends
-  OCAlog('\n* Setting up Front-End Synchronization Objects (configs: %s)',
-    OCApath.queue);
-
-  OCAsync = {
-    "backend" : new OCAbesync(OCApath.queue, null),
-    "frontend" : new OCAfesync(OCApath.sync, { "localId" : OCAcnf.id })
-  };
-
-}
-
-// Instantiate the Global Objects
-if (OCAprg == "backend") {
-
-  // Global Objects for Backends
+  OCAfeq = lib.feq.OCAfeq;
 
   // Orders Submitted
   OCAorders = { 
@@ -199,22 +191,37 @@ if (OCAprg == "backend") {
     "first" : null
   }; // Backend Jobs
 
-  // Avaliable CAs (populated by init from ca.js)
-  OCAcas = { 
-    "queue" : { }
-  }; // CA List
-
   // Availabe Crypto Service Providers (populated by ca.js)
   OCAcsps = {
     "queue" : { }
   }; // CSPs List
 
+    // Front-End Queue
+  fequeue = new OCAfeq(OCAcnf.frontend, 
+      { "localId" : OCAcnf.id }
+    );
+
 } else {
 
-  // Global Objects for Frontends
+  // This Global Object is used for managing the
+  // synchronization between the Frontend and the
+  // Backend (that can be online or offline)
+  OCAbesync = lib.besync.OCAbesync;
+
+  // This Global Object is used for Synchronizing
+  // across different Frontends (e.g., users, orgs,
+  // products, etc.)
+  OCAfesync = lib.fesync.OCAfesync;
+
+  // This Global Object is used for Synchronizing
+  // across different Frontends (e.g., users, orgs,
+  // products, etc.)
+  OCAbeq = lib.beq.OCAbeq;
 
   // Products Profiles
-  OCAproducts  = { }; // Available Products
+  OCAproducts  = {
+    "queue" : { }
+  }; // Available Products
 
   // Available Organizations
   OCAorgs = {
@@ -225,6 +232,16 @@ if (OCAprg == "backend") {
   OCApkis = {
     "queue" : { }
   };
+
+  // Synchronization Object for Frontends
+  OCAlog('\n* Setting up Front-End Synchronization Objects (configs: %s)',
+    OCApath.queue);
+
+  OCAsync = {
+    "backend" : new OCAbesync(OCApath.queue, { "localId" : OCAcnf.id }),
+    "frontend" : new OCAfesync(OCApath.sync, { "localId" : OCAcnf.id })
+  };
+
 }
 
 // Make sure that all the needed paths are
@@ -292,7 +309,7 @@ if (OCAcnf.listen.pathPrefix != null) {
 // (accessed at GET http://localhost:PORT/api)
 router.get('/', function(req, res) {
   // Wrong Usage of the API, let's redirect somewhere else
-  res.redirect("/");
+  res.redirect("https://www.openca.org");
 });
 
 // Routing Functions
@@ -316,6 +333,20 @@ for (var i in mods) {
     if (typeof(mods[i]) !== "function") OCAlog("  - " + i + " ... Skipped");
   }
 }
+
+// Default Handler For Wrong Path
+const defaultHandler = OCAtools.getHandler({ 
+    method: "all", path: /.*/, func: function $Main$defaultHandler ( req, res, ctx ) {
+      // Builds the error message
+      ctx.msg.err(new OCAErr(404, "Requested Resource Not Found"));
+      // Returns the error
+      OCAtools.returnError(req, res, ctx);
+      // All Done
+    }
+  }, { login: false, certAuth: false, reqAdmin: false, reqAudit: false }, true);
+
+// Registers the Default Handler
+OCAtools.registerHandlers(router, [ defaultHandler ]);
 
 // General Server Handler
 OCAserver = null;

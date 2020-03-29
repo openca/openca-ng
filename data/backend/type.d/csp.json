@@ -1,6 +1,7 @@
 {
   "id" : { "type" : "string", "required" : true },
   "enabled" : { "type" : "boolean", "required" : false },
+  "hasKeyFile" : { "type" : "boolean", "required" : true },
   "isHardware" : { "type" : "boolean", "required" : true },
   "compliance" : { "type" : "arrayOf:string", "required" : false },
   "init" : { "type" : "arrayOf:string", "required" : false },

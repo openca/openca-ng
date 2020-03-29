@@ -1,5 +1,4 @@
 {
   "enabled" : { "type" : "boolean", "required" : true },
-  "hasKeyFile" : { "type" : "boolean", "required" : false },
   "cmd" : { "type" : "ref:csp-capability-cryptocmd-algorcmd", "required" : false }
 }

@@ -35,17 +35,17 @@ BE_SRV_TYPE=RSA
 BE_SRV_SIZE=4096
 BE_SRV_HASH=sha384
 
-# Backend Global Administrator
-BE_GA_DIR=$BE_DIR/pki.d/be-admin
-BE_GA_KEY=$BE_GA_DIR/be-global-admin-key.pem
-BE_GA_CERT=$BE_GA_DIR/be-global-admin-cert.pem
-BE_GA_SUBJ="/O=OpenCA/OU=Backend Services/CN=Backend Global Admin 1"
-BE_GA_DAYS=1825
-BE_GA_SIGCERT=$BE_ROOT_CERT
-BE_GA_SIGKEY=$BE_ROOT_KEY
-BE_GA_TYPE=RSA
-BE_GA_SIZE=4098
-BE_GA_HASH=sha256
+# # Backend Global Administrator
+# BE_GA_DIR=$BE_DIR/pki.d/be-admin
+# BE_GA_KEY=$BE_GA_DIR/be-global-admin-key.pem
+# BE_GA_CERT=$BE_GA_DIR/be-global-admin-cert.pem
+# BE_GA_SUBJ="/O=OpenCA/OU=Backend Services/CN=Backend Global Admin 1"
+# BE_GA_DAYS=1825
+# BE_GA_SIGCERT=$BE_ROOT_CERT
+# BE_GA_SIGKEY=$BE_ROOT_KEY
+# BE_GA_TYPE=RSA
+# BE_GA_SIZE=4098
+# BE_GA_HASH=sha256
 
 # Backend Audit Agent Key
 BE_AA_DIR=$BE_DIR/pki.d/be-audit
@@ -84,17 +84,17 @@ FE_SRV_TYPE=RSA
 FE_SRV_SIZE=4096
 FE_SRV_HASH=sha512
 
-# Frontend Backend Client
-FE_CLI_DIR=$FE_DIR/pki.d/fe-beclient
-FE_CLI_KEY=$FE_CLI_DIR/fe-beclient-key.pem
-FE_CLI_CERT=$FE_CLI_DIR/fe-beclient-cert.pem
-FE_CLI_SUBJ="/O=OpenCA/OU=Backend Services/CN=NG Backend Client 1"
-FE_CLI_DAYS=1825
-FE_CLI_SIGCERT=$BE_ROOT_CERT
-FE_CLI_SIGKEY=$BE_ROOT_KEY
-FE_CLI_TYPE=ECDSA
-FE_CLI_SIZE=secp384r1
-FE_CLI_HASH=sha384
+# Backend as Frontend Client
+# FE_CLI_DIR=$FE_DIR/pki.d/be-feclient
+# FE_CLI_KEY=$FE_CLI_DIR/be-feclient-key.pem
+# FE_CLI_CERT=$FE_CLI_DIR/be-feclient-cert.pem
+# FE_CLI_SUBJ="/O=OpenCA/OU=Backend Services/CN=NG Backend 1"
+# FE_CLI_DAYS=1825
+# FE_CLI_SIGCERT=$BE_ROOT_CERT
+# FE_CLI_SIGKEY=$BE_ROOT_KEY
+# FE_CLI_TYPE=ECDSA
+# FE_CLI_SIZE=secp384r1
+# FE_CLI_HASH=sha384
 
 # Frontend Backend Audit Agent
 FE_AA_DIR=$FE_DIR/pki.d/fe-audit
@@ -299,9 +299,9 @@ case "$1" in
 		gen_cert "$BE_SRV_DIR" "$BE_SRV_KEY" "$BE_SRV_CERT" "$BE_SRV_SUBJ" "$BE_SRV_DAYS" "$BE_SRV_SIGCERT" "$BE_SRV_SIGKEY" "$BE_SRV_TYPE" "$BE_SRV_SIZE" "$BE_SRV_HASH"
 		echo
 
-		echo "Generating the Backend Global Admin's Certificate:"
-		gen_cert "$BE_GA_DIR" "$BE_GA_KEY" "$BE_GA_CERT" "$BE_GA_SUBJ" "$BE_GA_DAYS" "$BE_GA_SIGCERT" "$BE_GA_SIGKEY" "$BE_GA_TYPE" "$BE_GA_SIZE" "$BE_GA_HASH"
-		echo
+		# echo "Generating the Backend Global Admin's Certificate:"
+		# gen_cert "$BE_GA_DIR" "$BE_GA_KEY" "$BE_GA_CERT" "$BE_GA_SUBJ" "$BE_GA_DAYS" "$BE_GA_SIGCERT" "$BE_GA_SIGKEY" "$BE_GA_TYPE" "$BE_GA_SIZE" "$BE_GA_HASH"
+		# echo
 
 		# Generates the Backend Audit Authentication Cert
 		echo "* Generating the Backend Audit Agent's Certificate:"
@@ -321,12 +321,12 @@ case "$1" in
 		tools/gen-user.js -b -u user1 -p user1
 
 		# Adds a Certificate-Based test User(s) in the frontend interface
-		echo "  - Certificate-Based User (user2) .....: (cert) conf/frontend/pki.d/fe-beclient/fe-beclient-cert.pem"
-		tools/gen-user.js -b -u user2 -c conf/frontend/pki.d/fe-beclient/fe-beclient-cert.pem
+		# echo "  - Certificate-Based User (user2) .....: (cert) conf/backtend/pki.d/fe-server/fe-server-cert.pem"
+		# tools/gen-user.js -b -u user2 -c conf/backend/pki.d/be-server/be-server-cert.pem
 
 		# Adds a User-Based Admin in the frontend interface
-		echo "  - Password-Based Administrator (admin) .....: (passwd) admin"
-		tools/gen-user.js -b -u admin -p admin
+		# echo "  - Password-Based Administrator (admin) .....: (passwd) admin"
+		# tools/gen-user.js -b -u admin -p admin
 
 		# Adds a User-Based Global Admin in the frontend interface
 		echo "  - Password-Based Global Administrator (global) .....: (passwd) global"
@@ -341,9 +341,9 @@ case "$1" in
 		echo
 
 		# Generates the Frontend Client (for Backend Communication) Cert
-		echo "* Generating the Frontend Client's Certificate:"
-		gen_cert "$FE_CLI_DIR" "$FE_CLI_KEY" "$FE_CLI_CERT" "$FE_CLI_SUBJ" "$FE_CLI_DAYS" "$FE_CLI_SIGCERT" "$FE_CLI_SIGKEY" "$FE_CLI_TYPE" "$FE_CLI_SIZE" "$FE_CLI_HASH"
-		echo
+		# echo "* Generating the Frontend Client's Certificate:"
+		# gen_cert "$FE_CLI_DIR" "$FE_CLI_KEY" "$FE_CLI_CERT" "$FE_CLI_SUBJ" "$FE_CLI_DAYS" "$FE_CLI_SIGCERT" "$FE_CLI_SIGKEY" "$FE_CLI_TYPE" "$FE_CLI_SIZE" "$FE_CLI_HASH"
+		# echo
 
 		# Generates the Frontend Client (for Backend Communication) Cert
 		echo "* Generating the Frontend Audit Agent's Certificate:"
@@ -368,10 +368,6 @@ case "$1" in
 		echo "  - Password-Based User (test1) .....: (passwd) test1"
 		tools/gen-user.js -f -u user1 -p user1
 
-		# Adds a Certificate-Based test User(s) in the frontend interface
-		echo "  - Certificate-Based User (user2) .....: (cert) conf/frontend/pki.d/fe-user/fe-user-cert.pem"
-		tools/gen-user.js -f -u user2 -c conf/frontend/pki.d/fe-user/fe-user-cert.pem
-
 		# Adds a User-Based Admin in the frontend interface
 		echo "  - Password-Based Administrator (admin) .....: (passwd) admin"
 		tools/gen-user.js -f -u admin -p admin
@@ -379,6 +375,10 @@ case "$1" in
 		# Adds a User-Based Global Admin in the frontend interface
 		echo "  - Password-Based Global Administrator (global) .....: (passwd) global"
 		tools/gen-user.js -f -u global -p global -g
+
+    # Adds a Certificate-Based test User(s) in the frontend interface
+		echo "  - Certificate-Based User (backend1) .....: (cert) conf/backend/pki.d/be-server/be-server-cert.pem"
+		tools/gen-user.js -f -u backend1 -c conf/backend/pki.d/be-server/be-server-cert.pem -g
 		;;
 
 	cleanup-backend-creds)

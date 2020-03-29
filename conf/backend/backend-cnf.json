@@ -1,32 +1,63 @@
 {
-  "baseUrl" : "https://www.openca.org",
-  "listen" : {
-    "host" : "127.0.0.1",
-    "port" : 8443,
-    "pathPrefix" : "/1.0",
-    "auth" : {
-      "privKey" : "conf/backend/pki.d/be-server/be-server-key.pem",
-      "certAndChain" : "conf/backend/pki.d/be-server/be-server-cert.pem",
-      "trustedCas" : "conf/backend/pki.d/be-root/be-root-cert.pem",
-      "requestClientCert" : true,
-      "allowUntrustedClientCert" : true
+  "id": "Default Backend",
+  "baseUrl": "https://www.openca.org",
+  "listen": {
+    "host": "127.0.0.1",
+    "port": 8443,
+    "pathPrefix": "/1.0",
+    "auth": {
+      "privKey": "conf/backend/pki.d/be-server/be-server-key.pem",
+      "certAndChain": "conf/backend/pki.d/be-server/be-server-cert.pem",
+      "trustedCas": "conf/backend/pki.d/be-root/be-root-cert.pem",
+      "requestClientCert": true,
+      "allowUntrustedClientCert": true
     }
   },
-  "cookies" : {
-    "domain" : ".localhost",
-    "maxAge" : 1800000,
-    "maxUpdateAge" : 5,
-    "maxInactivity" : "interval '1 hour'",
-    "maxLifespan" : "interval '48 hours'",
-    "name" : "OCApki"
-  },
-  "audit" : {
-    "cert" : "conf/backend/pki.d/be-audit/be-audit-cert.pem",
-    "key" : {
-      "id" : "conf/backend/pki.d/be-audit/be-audit-key.pem",
-      "type" : "software"
+  "frontend": {
+    "id": "FrontEnd1",
+    "baseUrl": "https://127.0.0.1:6443/1.0",
+    "clientAuth": {
+      "privKey": "conf/backend/pki.d/be-server/be-server-key.pem",
+      "certAndChain": "conf/backend/pki.d/be-server/be-server-cert.pem",
+      "trustedCas": "conf/frontend/pki.d/fe-root/fe-root-cert.pem"
+    },
+    "serverAuth": {
+      "certName": "conf/frontend/pki.d/fe-server/fe-server-cert.pem",
+      "subject": {
+        "CN": "NG Backend Server 1"
+      },
+      "issuer": {
+        "O": "OpenCA",
+        "OU": "BackEnd Services",
+        "CN": "Backend Infrastructure Root"
+      },
+      "issuerCertificate": {
+        "certName": null,
+        "subject": {
+          "O": "OpenCA"
+        },
+        "issuer": {
+          "O": "OpenCA",
+          "OU": "BackEnd Services"
+        }
+      }
     }
   },
-  "verbose" : true,
-  "debug" : true
+  "cookies": {
+    "domain": ".localhost",
+    "maxAge": 1800000,
+    "maxUpdateAge": 5,
+    "maxInactivity": "interval '1 hour'",
+    "maxLifespan": "interval '48 hours'",
+    "name": "OCApki"
+  },
+  "audit": {
+    "cert": "conf/backend/pki.d/be-audit/be-audit-cert.pem",
+    "key": {
+      "id": "conf/backend/pki.d/be-audit/be-audit-key.pem",
+      "type": "software"
+    }
+  },
+  "verbose": true,
+  "debug": true
 }

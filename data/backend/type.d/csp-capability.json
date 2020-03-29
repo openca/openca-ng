@@ -1,7 +1,6 @@
 {
+  "keyDelete" : { "type" : "ref:csp-capability-cryptocmd", "required" : true },
   "keyCreate" : { "type" : "ref:csp-capability-cryptocmd", "required" : true },
   "keyImport" : { "type" : "ref:csp-capability-cryptocmd", "required" : true },
-  "keyWrap"   : { "type" : "ref:csp-capability-cryptocmd", "required" : true },
-  "keyUnwrap" : { "type" : "ref:csp-capability-cryptocmd", "required" : true },
-  "keyDelete" : { "type" : "ref:csp-capability-cryptocmd", "required" : true }
+  "keyExport" : { "type" : "ref:csp-capability-cryptocmd", "required" : true }
 }
