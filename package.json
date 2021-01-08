@@ -31,7 +31,9 @@
     "node": ">= 5.7.0",
     "ender": ">= 0.5.0"
   },
+  "gypfile": true,
   "dependencies": {
+    "node-addon-api": "^0.6.3",
     "bluebird": "~3.5.3",
     "body-parser": "~1.18.3",
     "clone": "~2.1.2",
