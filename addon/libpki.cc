@@ -1,4 +1,6 @@
-// addon.cc
+// Example AddOn for Linking LibPKI
+// [ NodeJS Required Version: 14.15.XX ]
+
 #include <node.h>
 #include <libpki/pki.h>
 
@@ -24,7 +26,7 @@ void Add(const FunctionCallbackInfo<Value>& args) {
     // Throw an Error that is passed back to JavaScript
     isolate->ThrowException(Exception::TypeError(
         String::NewFromUtf8(isolate,
-                            "Wrong number of arguments")));
+                            "Wrong number of arguments").ToLocalChecked()));
     return;
   }
 
@@ -32,7 +34,7 @@ void Add(const FunctionCallbackInfo<Value>& args) {
   if (!args[0]->IsNumber() || !args[1]->IsNumber()) {
     isolate->ThrowException(Exception::TypeError(
         String::NewFromUtf8(isolate,
-                            "Wrong arguments")));
+                            "Wrong arguments").ToLocalChecked()));
     return;
   }
 
